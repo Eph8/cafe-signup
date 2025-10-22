@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Café Promo Signup</title>
+  <style>
+    body {
+      font-family: "Genty";  
+      background-color: #fadaf7;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background: #C4E6CC;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px 40px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    p {
+      margin-bottom: 25px;
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #829c88;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #46564a;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Join the delicato family!</h1>
+    <p>Be the first to know about our sweet deals, exclusive discounts, exclusive events, and new menu drops!</p>
+
+    <form id="signup-form">
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+      <input type="email" id="email" name="email" placeholder="Your email" required />
+      <button type="submit">Sign Up</button>
+      <div id="message"></div>
+    </form>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("bwg2h_zwkppqFxCrs"); // Replace with your EmailJS public key
+    })();
+
+    const form = document.getElementById("signup-form");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const templateParams = {
+        email: document.getElementById("email").value
+      };
+
+      emailjs.send("service_yjy5kif", "template_5hpys8x", templateParams)
+        .then(() => {
+          message.textContent = "✅ Thank you for signing up!";
+          form.reset();
+        })
+        .catch(err => {
+          console.error("Email error:", err);
+          message.textContent = "❌ Oops, something went wrong. Please try again.";
+        });
+    });
+  </script>
+</body>
+</html>
